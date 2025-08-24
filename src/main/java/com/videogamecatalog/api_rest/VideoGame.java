@@ -15,4 +15,15 @@ public class VideoGame {
     private String description;
     private double price;
     private String gender;
+
+    @Override
+    public String toString() {
+        return "{\n" +
+                "\tid=" + id +",\n"+
+                "\ttitle='" + title + '\'' +",\n"+
+                "\tdescription='" + description + '\'' +",\n"+
+                "\tprice=" + price +",\n"+
+                "\tgender='" + gender + '\'' +"\n"+
+                "}\n";
+    }
 }

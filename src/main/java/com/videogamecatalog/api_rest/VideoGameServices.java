@@ -20,11 +20,12 @@ public class VideoGameServices {
         return videoGameRepository.findById(id);
     }
 
-    public void saveOrUpdate(VideoGame videoGame) {
-        videoGameRepository.save(videoGame);
+    public VideoGame saveOrUpdate(VideoGame videoGame) {
+       return videoGameRepository.save(videoGame);
     }
 
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         videoGameRepository.deleteById(id);
+        return videoGameRepository.existsById(id);
     }
 }

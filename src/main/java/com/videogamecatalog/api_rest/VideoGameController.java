@@ -13,22 +13,41 @@ public class VideoGameController {
     VideoGameServices videoGameServices;
 
     @GetMapping
-    public List<VideoGame> findAll() {
-        return videoGameServices.findAll();
+    public String findAll() {
+        List<VideoGame>  response = videoGameServices.findAll();
+        if (response.isEmpty()) {
+            return "No se encontraron Video Juegos registrados";
+        } else {
+            return "Se encontraron los siguientes videos juegos:\n"+response;
+        }
     }
 
     @GetMapping("/{id}")
-    public Optional<VideoGame> findById(@PathVariable Long id) {
-        return videoGameServices.findById(id);
+    public String findById(@PathVariable Long id) {
+        Optional<VideoGame>response = videoGameServices.findById(id);
+        if (response.isPresent()) {
+            return "Se encontro el siguiente videoJuego:\n"+response;
+        } else {
+            return "No se encontraron datos";
+        }
     }
 
     @PostMapping
-    public void saveOrUpdate(@RequestBody VideoGame videoGame) {
-        videoGameServices.saveOrUpdate(videoGame);
+    public String saveOrUpdate(@RequestBody VideoGame videoGame) {
+       VideoGame response =  videoGameServices.saveOrUpdate(videoGame);
+        if (response != null) {
+            return "Respuesta satisfactoria en la base de datos\n"+response;
+        } else {
+            return "Hubo un error inesperado\n";
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
-        videoGameServices.deleteById(id);
+    public String deleteById(@PathVariable Long id) {
+       if(!videoGameServices.deleteById(id)) {
+           return "El registro fue eliminado correctamente";
+       } else {
+           return "Hubo un problema y no se pudo eliminar";
+       }
     }
 }
